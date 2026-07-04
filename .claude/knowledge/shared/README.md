@@ -22,7 +22,7 @@ The **Shared Knowledge Base** contains conventions and standards that are:
 
 ### Engineering Standards
 
-- **[DDD Conventions](./ddd-conventions.md)** 
+- **[DDD Conventions](./ddd-conventions.md)**
   - Domain-Driven Design patterns and principles
   - Aggregate design rules
   - Business rule conventions
@@ -40,18 +40,6 @@ The **Shared Knowledge Base** contains conventions and standards that are:
   - Error code conventions
   - Idempotency requirements
 
-- **[Documentation Standards](./documentation-standards.md)**
-  - Documentation structure
-  - Writing conventions
-  - Review guidelines
-  - Maintenance practices
-
-- **[Architecture Principles](./architecture-principles.md)**
-  - System architecture patterns
-  - Technology stack choices
-  - Integration patterns
-  - Performance standards
-
 ---
 
 ## Quick Reference
@@ -63,8 +51,6 @@ The **Shared Knowledge Base** contains conventions and standards that are:
 | **DDD patterns** | `shared/ddd-conventions.md` | All services |
 | **Event patterns** | `shared/event-conventions.md` | All services |
 | **API patterns** | `shared/api-conventions.md` | All services |
-| **Doc standards** | `shared/documentation-standards.md` | All services |
-| **Architecture** | `shared/architecture-principles.md` | All services |
 | **Service-specific** | `knowledge/{service}/` | One service |
 
 ---
@@ -189,34 +175,6 @@ load(knowledge/{service}/domains/)
 
 ---
 
-### Documentation
-
-**Location**: `documentation-standards.md`
-
-**Key conventions**:
-- Documentation structure
-- Writing guidelines
-- Review process
-- Maintenance practices
-
-**Used by**: All services with documentation
-
----
-
-### Architecture
-
-**Location**: `architecture-principles.md`
-
-**Key conventions**:
-- System architecture patterns
-- Technology stack
-- Integration patterns
-- Performance standards
-
-**Used by**: All services
-
----
-
 ## Versioning
 
 ### Shared Documentation Versioning
@@ -272,8 +230,6 @@ knowledge/
 - [DDD Conventions](./ddd-conventions.md)
 - [Event Conventions](./event-conventions.md)
 - [API Conventions](./api-conventions.md)
-- [Documentation Standards](./documentation-standards.md)
-- [Architecture Principles](./architecture-principles.md)
 
 ---
 

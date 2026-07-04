@@ -512,8 +512,6 @@ interface InsufficientBalance {
 
 - [DDD Conventions](./ddd-conventions.md) - Domain-driven design patterns
 - [API Conventions](./api-conventions.md) - API design patterns
-- [Documentation Standards](./documentation-standards.md) - Documentation structure
-- [Architecture Principles](./architecture-principles.md) - System architecture
 
 ---
 

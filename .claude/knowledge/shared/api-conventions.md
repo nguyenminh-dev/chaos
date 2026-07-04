@@ -484,8 +484,6 @@ Successful calls publish:
 
 - [DDD Conventions](./ddd-conventions.md) - Domain-driven design patterns
 - [Event Conventions](./event-conventions.md) - Event patterns
-- [Documentation Standards](./documentation-standards.md) - Documentation structure
-- [Architecture Principles](./architecture-principles.md) - System architecture
 
 ---
 

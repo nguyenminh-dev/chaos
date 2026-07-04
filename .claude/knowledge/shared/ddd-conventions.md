@@ -525,8 +525,6 @@ PaymentSucceeded event from Payment Aggregate
 
 - [Event Conventions](./event-conventions.md) - Domain event patterns
 - [API Conventions](./api-conventions.md) - API design patterns
-- [Documentation Standards](./documentation-standards.md) - Documentation structure
-- [Architecture Principles](./architecture-principles.md) - System architecture
 
 ---
 

@@ -40,6 +40,18 @@ The **Shared Knowledge Base** contains conventions and standards that are:
   - Error code conventions
   - Idempotency requirements
 
+- **[Documentation Standards](./documentation-standards.md)**
+  - Documentation structure patterns
+  - Quality standards
+  - Maintenance workflows
+  - Template usage
+
+- **[Glossary](./glossary.md)**
+  - Universal DDD terminology
+  - Clean Architecture definitions
+  - Common acronyms
+  - Shared concepts
+
 ---
 
 ## Quick Reference

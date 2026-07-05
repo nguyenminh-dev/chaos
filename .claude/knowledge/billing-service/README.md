@@ -48,9 +48,27 @@ Billing Service (Financial Operations Bounded Context)
 │  ├─ Handle Webhook
 │  └─ Create Invoice
 │
+├─ Flows (End-to-End Business Workflows)
+│  ├─ Payment Topup to Invoice Flow
+│  └─ Credit Consumption with Retry
+│
+├─ Examples (API Request/Response Examples)
+│  ├─ Credit Operations
+│  ├─ Payment Operations
+│  └─ Invoice Operations
+│
+├─ Decisions (Architecture Decision Records)
+│  └─ (Future ADRs)
+│
+├─ Pitfalls (Common Implementation Mistakes)
+│  ├─ Domain Pitfalls
+│  ├─ Application Pitfalls
+│  └─ API Pitfalls
+│
 ├─ APIs
 ├─ Events
 ├─ Infrastructure
+├─ Reference
 └─ Architecture
 ```
 
@@ -72,10 +90,14 @@ Billing Service (Financial Operations Bounded Context)
 
 ### By Concern
 - [**Policies**](./policies/) - Cross-aggregate business policies
+- [**Flows**](./flows/) - End-to-end business workflows
+- [**Examples**](./examples/) - API request/response examples
+- [**Decisions**](./decisions/) - Architecture Decision Records (ADRs)
+- [**Pitfalls**](./pitfalls/) - Common implementation mistakes
 - [**APIs**](./api/) - API reference
 - [**Events**](./events/) - Event catalog
 - [**Architecture**](./architecture/) - System architecture
-- [**Reference**](./reference/) - Glossary and reference materials
+- [**Reference**](./reference/) - Service-specific glossary
 
 ---
 
@@ -88,6 +110,8 @@ Business knowledge exists in exactly one place:
 - **Lifecycle** → `domains/{aggregate}/lifecycle.md`
 - **Domain Events** → `domains/{aggregate}/domain-events.md`
 - **Model** → `domains/{aggregate}/model.md`
+
+**Shared Concepts**: For universal DDD patterns, terminology, and conventions, see the [Shared Knowledge Base](../shared/).
 
 ### Clean Architecture
 ```
@@ -284,11 +308,19 @@ graph TB
 ---
 
 ## Related Documentation
+
+### Service-Specific
 - [Database Schema](./infrastructure/database.md)
-- [External Services](./infrastructure/external-services.md)
-- [Dependency Map](./architecture/dependency-map.md)
 - [Event Catalog](./events/README.md)
-- [Glossary](./reference/glossary.md)
+- [Service Glossary](./reference/glossary.md)
+- [Contributing Guidelines](./CONTRIBUTING_AI.md)
+
+### Shared Knowledge Base
+- [Shared DDD Conventions](../shared/ddd-conventions.md) - Universal DDD patterns
+- [Shared Event Conventions](../shared/event-conventions.md) - Event standards
+- [Shared API Conventions](../shared/api-conventions.md) - API patterns
+- [Shared Documentation Standards](../shared/documentation-standards.md) - Documentation guidelines
+- [Shared Glossary](../shared/glossary.md) - Universal terminology
 
 ---
 

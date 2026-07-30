@@ -296,19 +296,43 @@ grep -r "Wallet Aggregate" .claude/billing-service/domains/
 
 ---
 
-## Phase 5: Testing
+## Phase 5: Testing (⚠️ CRITICAL - TDD Required)
 
-### Step 5.1: Acceptance Test
+### Step 5.1: Follow TDD Workflow (🔴 MANDATORY)
 
-**Create test** for the new feature:
-- Test happy path
-- Test validation errors
-- Test edge cases
-- Test business rule violations
+**CRITICAL**: You MUST follow Test-Driven Development workflow.
 
----
+**Read**: [TDD Playbook](../templates/tdd-playbook.md) before writing ANY code.
 
-### Step 5.2: Integration Test
+**TDD Sequence**:
+1. **🔴 RED**: Write FAILING test first
+2. **🟢 GREEN**: Write MINIMUM code to make test pass
+3. **🔵 BLUE**: Refactor to improve quality
+
+**NEVER write code before tests exist.**
+
+### Step 5.2: Write Tests in Correct Order
+
+**Outside-In TDD Order**:
+1. **Acceptance Test** (API layer) - Write failing test
+2. **Application Test** (Use case) - Write failing test
+3. **Domain Test** (Business rules) - Write failing test
+4. **Implement Domain** - Make domain tests pass
+5. **Implement Application** - Make app tests pass
+6. **Implement API** - Make acceptance tests pass
+7. **Refactor** - Improve while tests protect you
+
+### Step 5.3: Verify Test Quality
+
+**Every test must**:
+- [ ] Be written BEFORE implementation
+- [ ] FAIL initially (Red phase)
+- [ ] PASS after implementation (Green phase)
+- [ ] Cover business rules
+- [ ] Cover edge cases
+- [ ] Cover error conditions
+
+### Step 5.4: Integration Test
 
 **Create test** for integrations:
 - Test external service calls (if any)
@@ -316,14 +340,43 @@ grep -r "Wallet Aggregate" .claude/billing-service/domains/
 - Test event handling
 - Test database operations
 
----
-
-### Step 5.3: Regression Test
+### Step 5.5: Regression Test
 
 **Run existing tests**:
 - Verify no existing functionality broken
 - Verify existing business rules still enforced
 - Verify existing use cases still work
+
+---
+
+## ⚠️ TDD Enforcement
+
+### Mandatory Requirements
+
+**Before writing ANY implementation code**:
+1. ✅ Read [TDD Playbook](../templates/tdd-playbook.md)
+2. ✅ Write failing test
+3. ✅ Verify test fails
+4. ✅ Then implement code
+
+### Common TDD Mistakes to Avoid
+
+❌ **WRONG**: Implement domain, then write tests
+❌ **WRONG**: Write application service, then write tests
+❌ **WRONG**: Write API controller, then write tests
+❌ **WRONG**: Write all tests at once, then implement
+❌ **WRONG**: Skip Red phase (write passing tests first)
+
+✅ **CORRECT**: Write failing test, implement, repeat
+✅ **CORRECT**: One test at a time
+✅ **CORRECT**: Test behavior, not implementation
+✅ **CORRECT**: Refactor only when all tests pass
+
+### TDD Resources
+
+- [TDD Playbook](../templates/tdd-playbook.md) - Complete TDD workflow
+- [Testing Conventions](../knowledge/shared/testing-conventions.md) - Test patterns
+- [Wion Engineering Rules](../CLAUDE.md) - DDD Rule 3: Outside-In TDD
 
 ---
 

@@ -1,53 +1,373 @@
-# AI Engineering Principles
+# Wion Engineering Rules
 
-You are a Senior Software Architect.
+These rules are mandatory for every task in this repository.
 
-You are responsible for the complete software lifecycle.
-
-You do not only write code.
-
-You own
-
-- Domain Analysis
-- Architecture
-- Design
-- Testing
-- Documentation
-- Maintainability
-
-Your goal is building software that can survive years of evolution.
+Failure to follow these rules is considered an incorrect implementation.
 
 ---
 
-# Engineering Philosophy
+# 1. Think Before Coding
 
-Always follow
+For every feature, refactoring, migration or bug fix:
 
-- Domain Driven Design (DDD)
-- Test Driven Development (Outside-In)
-- Clean Architecture
-- SOLID
-- CQRS when appropriate
-- Event Driven Architecture where applicable
+1. Analyze the existing codebase.
+2. Understand the architecture.
+3. Identify all affected projects.
+4. Produce an implementation plan.
+5. Review the plan against the architecture.
+6. Execute the plan automatically.
 
-Never sacrifice architecture for short-term implementation.
+Do **NOT** stop after creating the plan.
+
+Do **NOT** ask for confirmation unless explicitly requested.
+
+---
+
+# 2. Source of Truth
+
+The existing repository is always the source of truth.
+
+Never invent a new architecture if one already exists.
+
+Before creating any class, service or abstraction:
+
+* search the repository
+* reuse existing code
+* extend existing implementations when appropriate
+
+Never duplicate code.
 
 ---
 
-# Multi-Service Knowledge Base Architecture
+# 3. Wion.BuildingBlock
 
-## CRITICAL: Service-Agnostic Operation
+Never create new shared code inside:
 
-This repository contains **multiple microservices**. NEVER assume a single service name.
+```
+src/building-blocks
+```
 
-**Before ANY task, you MUST**:
+All reusable infrastructure must belong to:
 
-1. **DISCOVER** which service(s) are affected
-2. **LOCATE** the corresponding Knowledge Base(s)
-3. **LOAD** the service-specific documentation
-4. **APPLY** shared conventions from `knowledge/shared/`
+```
+src/framework/Wion.BuildingBlock
+```
+
+The BuildingBlock project is the only shared foundation for Wion services.
+
+Only generic infrastructure belongs here.
+
+Examples:
+
+* Result
+* Exceptions
+* Guard
+* Extensions
+* BaseEntity
+* AggregateRoot
+* ValueObject
+* Domain Events
+* Event Bus abstraction
+* Unit of Work abstraction
+* Repository abstraction
+* Specifications
+* Validation
+* Authorization abstraction
+* Caching abstraction
+* Distributed Lock
+* Background Job abstraction
+* Shared Middleware
+* Shared Configuration
+* Shared Contracts
+* Shared DTO
+* Common Constants
+* Common Interfaces
+
+Never move business logic into BuildingBlock.
 
 ---
+
+# 4. Billing Rules
+
+Billing is a bounded context.
+
+Never place Billing business logic inside BuildingBlock.
+
+Billing should consume BuildingBlock.
+
+BuildingBlock must never depend on Billing.
+
+---
+
+# 5. Architecture
+
+Always follow:
+
+* Clean Architecture
+* Test Driven Design - TDD
+* DDD
+* SOLID
+* CQRS where appropriate
+* Dependency Inversion
+
+Never introduce circular dependencies.
+
+Dependencies must always point inward.
+
+---
+
+# 6. Refactoring Rules
+
+Before creating anything:
+
+Search first.
+
+If similar code exists:
+
+* reuse it
+* improve it
+* extract it
+
+Never create duplicate implementations.
+
+Never copy & paste code.
+
+---
+
+# 7. Namespace Rules
+
+Namespaces must match folder structure.
+
+Avoid namespace inconsistencies.
+
+Update all references after moving files.
+
+---
+
+# 8. Project References
+
+Keep project references minimal.
+
+Do not reference an application project from another application project.
+
+Prefer abstractions.
+
+Avoid unnecessary package references.
+
+---
+
+# 9. Dependency Injection
+
+Every new service must be registered.
+
+Avoid duplicate registrations.
+
+Remove unused registrations.
+
+---
+
+# 10. Build Quality
+
+A task is NOT complete until:
+
+* solution builds
+* no compile errors
+* no warnings introduced unnecessarily
+* no broken references
+* no missing DI registrations
+
+---
+
+# 11. Migration Rules
+
+When moving code:
+
+* update namespaces
+* update references
+* remove old implementations
+* remove dead code
+* remove duplicate code
+
+Never leave both old and new implementations.
+
+---
+
+# 12. Code Quality
+
+Prefer:
+
+* composition
+* immutable objects
+* small classes
+* small methods
+* descriptive names
+
+Avoid:
+
+* giant classes
+* static state
+* duplicated logic
+* magic strings
+* magic numbers
+
+---
+
+# 13. Testing
+
+When changing shared code:
+
+Run affected tests.
+
+If tests fail:
+
+Fix them.
+
+Do not ignore failures.
+
+---
+
+# 14. Self Review
+
+Before finishing any task, review:
+
+* architecture
+* dependencies
+* naming
+* performance
+* maintainability
+* code duplication
+* dead code
+
+Fix every issue found before considering the task complete.
+
+---
+
+# 15. Continuous Improvement
+
+If a better reusable abstraction is discovered during implementation:
+
+Extract it into:
+
+```
+src/framework/Wion.BuildingBlock
+```
+
+without waiting for explicit instructions.
+
+---
+
+# 16. Never Stop Halfway
+
+Do not stop after:
+
+* analysis
+* planning
+* generating code
+* partial refactoring
+
+Continue until:
+
+* implementation is complete
+* migration is complete
+* build succeeds
+* tests pass
+* dead code is removed
+
+---
+
+# 17. Repository Awareness
+
+Before modifying any module:
+
+* inspect related services
+* inspect shared libraries
+* inspect existing abstractions
+* understand dependency graph
+
+Never implement in isolation.
+
+---
+
+# 18. Backward Compatibility
+
+Avoid breaking public APIs.
+
+If breaking changes are unavoidable:
+
+* migrate all usages
+* update every caller
+* keep the repository compiling
+
+Never leave partially migrated code.
+
+---
+
+# 19. Engineering Principle
+
+Think like the principal engineer responsible for the entire repository.
+
+Optimize for long-term maintainability rather than the fastest implementation.
+
+Every change should make the repository cleaner than before.
+
+---
+
+# 20. Definition of Done
+
+A task is finished only when all of the following are true:
+
+- Analysis completed.
+- Implementation plan completed.
+
+## Test-First Development
+
+- Unit tests were written BEFORE any production code.
+- The initial test run failed for the expected reason.
+- Production code was implemented only after the failing tests existed.
+- All new behavior is covered by unit tests.
+- All tests pass.
+
+## Implementation
+
+- Implementation completed.
+- Refactoring completed.
+- Migration completed when required.
+
+## Quality
+
+- Build successful.
+- No compiler warnings introduced.
+- Dead code removed.
+- Duplicate code removed.
+- Architecture remains clean.
+- Documentation updated when necessary.
+
+## Validation
+
+Include a final TDD report showing:
+- Tests created first.
+- Initial test result: FAILED.
+- Production code implemented.
+- Final test result: PASSED.
+
+---
+
+# Project Structure
+
+## Multi-Service Architecture
+
+This repository contains multiple microservices following Wion engineering standards:
+
+```
+src/
+├── framework/
+│   └── Wion.BuildingBlock/          # Shared foundation (MUST USE THIS)
+├── services/
+│   ├── billing-management/          # Existing billing service (TMT pattern)
+│   ├── wion-billing/                # New billing service (DDD pattern)
+│   └── [other services]/             # Future services
+└── building-blocks/                  # ❌ DEPRECATED - Do not use
+```
 
 ## Service Discovery Rules
 
@@ -57,29 +377,10 @@ Before starting any task, identify affected services:
 
 **Detection Methods**:
 - ✅ **Explicit mention**: Task mentions service name ("Fix billing bug")
-- ✅ **File paths**: Task includes service-specific paths (`knowledge/billing-service/`)
+- ✅ **File paths**: Task includes service-specific paths (`knowledge/wion-billing/`)
 - ✅ **Domain context**: Task mentions domain concepts ("Wallet", "Payment")
 - ✅ **API context**: Task mentions API endpoints (`/api/v1/wallets/`)
 - ✅ **Event context**: Task mentions service events (`PaymentSucceeded`)
-
-**Examples**:
-```bash
-✅ CORRECT:
-Task: "Add freeze wallet feature"
-→ Detects: "Wallet" domain → billing-service
-→ Loads: knowledge/billing-service/domains/wallet/
-
-Task: "Fix invoice generation bug"  
-→ Detects: "Invoice" domain → billing-service
-→ Loads: knowledge/billing-service/domains/invoice/
-
-❌ WRONG:
-Task: "Add freeze wallet feature"
-→ Assumes: billing-service (hardcoded)
-→ Loads: .claude/billing-service/ (old path)
-```
-
----
 
 ### Rule 2: Knowledge Base Location
 
@@ -94,139 +395,10 @@ Task: "Add freeze wallet feature"
 ├── prompts/               # AI prompt templates
 └── knowledge/             # Multi-service documentation
     ├── shared/            # Shared conventions
-    ├── billing-service/   # Billing Service docs
-    ├── tenant-service/    # Tenant Service docs
+    ├── wion-billing/      # WION Billing Service docs
+    ├── billing-management/ # TMT Billing Management docs
     └── [other services]/  # Future services
 ```
-
-**Path Patterns**:
-```bash
-✅ CORRECT:
-knowledge/{service}/README.md
-knowledge/{service}/domains/{domain}/
-knowledge/shared/ddd-conventions.md
-
-❌ WRONG:
-.claude/billing-service/README.md
-.claude/billing-service/domains/
-```
-
----
-
-### Rule 3: Cross-Service Tasks
-
-When a task affects **multiple services**:
-
-1. **Identify ALL affected services**
-2. **Load EVERY affected Knowledge Base**
-3. **Perform cross-service impact analysis**
-4. **Update EVERY affected Knowledge Base**
-
-**Examples**:
-```bash
-Task: "Add payment webhook notification"
-→ Detects: Affects billing-service + notification-service
-→ Loads: 
-   - knowledge/billing-service/domains/payment/
-   - knowledge/notification-service/api/
-→ Analyzes: Cross-service event publishing
-→ Updates: Both service documentation
-```
-
----
-
-### Rule 4: New Service Creation
-
-If a service **doesn't exist yet**:
-
-1. **Detect** new service requirement
-2. **CREATE** standard Knowledge Base structure
-3. **INITIALIZE** with service-specific documentation
-4. **APPLY** shared conventions
-
-**Standard Service Structure**:
-```bash
-knowledge/{service}/
-├── README.md                 # Service overview
-├── architecture/             # Architecture documentation
-│   ├── bounded-context.md
-│   ├── context-map.md
-│   ├── change-impact-matrix.md
-│   ├── dependency-map.md
-│   └── navigation.md
-├── domains/                  # Business knowledge
-│   ├── {domain}/
-│   │   ├── overview.md
-│   │   ├── aggregate.md
-│   │   ├── model.md
-│   │   ├── business-rules.md
-│   │   ├── lifecycle.md
-│   │   ├── domain-events.md
-│   │   └── repositories.md
-├── application/              # Use cases
-│   ├── README.md
-│   └── use-cases/
-│       └── {use-case}.md
-├── api/                      # API documentation
-│   ├── README.md
-│   └── index.md
-├── events/                   # Event catalog
-│   └── README.md
-├── policies/                 # Cross-aggregate logic
-│   ├── README.md
-│   └── {policy}.md
-├── infrastructure/           # Infrastructure details
-│   └── README.md
-├── reference/                # Reference materials
-│   ├── README.md
-│   └── glossary.md
-└── adr/                      # Architecture decisions
-    └── README.md
-```
-
----
-
-## Shared Knowledge Usage
-
-### Rule 5: Always Load Shared Conventions
-
-**Before ANY task**:
-1. Load `knowledge/shared/ddd-conventions.md`
-2. Load `knowledge/shared/api-conventions.md`
-3. Load `knowledge/shared/event-conventions.md`
-
-**Then**:
-4. Load service-specific documentation
-5. Apply shared conventions to service context
-
----
-
-### Rule 6: Reference, Don't Duplicate
-
-**Service documentation should REFERENCE shared knowledge**:
-
-```markdown
-✅ CORRECT:
-# knowledge/billing-service/domains/wallet/business-rules.md
-
-## Business Rules
-
-This service follows [WION DDD conventions](../../shared/ddd-conventions.md).
-
-### BR-W-001: One Wallet Per Tenant
-Follows standard business rule format from shared conventions.
-```
-
-```markdown
-❌ WRONG:
-# knowledge/billing-service/domains/wallet/business-rules.md
-
-## Business Rules
-
-Define business rules as...  ❌ WRONG (duplicates shared docs)
-```
-
----
 
 ## Standard Workflow
 
@@ -264,13 +436,15 @@ perform_task_with_context(service, shared_conventions)
 
 ---
 
-# Rule 1
+# DDD Implementation Rules
+
+## Rule 1
 
 Never start coding immediately.
 
 Always understand the business first.
 
-Identify
+Identify:
 
 - Business capability
 - Use Case
@@ -280,7 +454,7 @@ Identify
 - Integration Events
 - Transaction Boundary
 
-If these are unclear
+If these are unclear:
 
 STOP
 
@@ -290,11 +464,11 @@ Never guess.
 
 ---
 
-# Rule 2
+## Rule 2
 
 Think in Domain first.
 
-Never think
+Never think:
 
 Controller
 
@@ -306,7 +480,7 @@ Service
 
 Repository
 
-Instead think
+Instead think:
 
 Business
 
@@ -332,59 +506,41 @@ API
 
 ---
 
-# Rule 3
+## Rule 3
 
 Practice Outside-In TDD
 
-For every feature
+For every feature:
 
-Step 1
+**Step 1**: Understand requirements.
 
-Understand requirements.
+**Step 2**: Identify Acceptance Criteria.
 
-Step 2
+**Step 3**: Design API Contract.
 
-Identify Acceptance Criteria.
+**Step 4**: Write failing acceptance/integration test.
 
-Step 3
+**Step 5**: Write failing application test.
 
-Design API Contract.
+**Step 6**: Write failing domain test.
 
-Step 4
+**Step 7**: Implement minimum code.
 
-Write failing acceptance/integration test.
+**Step 8**: Make tests pass.
 
-Step 5
-
-Write failing application test.
-
-Step 6
-
-Write failing domain test.
-
-Step 7
-
-Implement minimum code.
-
-Step 8
-
-Make tests pass.
-
-Step 9
-
-Refactor.
+**Step 9**: Refactor.
 
 Never implement before tests exist.
 
 ---
 
-# Rule 4
+## Rule 4
 
 Protect Domain
 
 Business Rules belong only inside Domain.
 
-Never place business rules inside
+Never place business rules inside:
 
 Controller
 
@@ -400,203 +556,146 @@ Application layer only coordinates.
 
 ---
 
-# Rule 5
+## Rule 5
 
-Every Aggregate must define
+Every Aggregate must define:
 
-Purpose
-
-Aggregate Root
-
-Entities
-
-Value Objects
-
-Business Invariants
-
-Lifecycle
-
-Domain Events
-
-Repositories
-
-Factories
-
-Specifications
+- Purpose
+- Aggregate Root
+- Entities
+- Value Objects
+- Business Invariants
+- Lifecycle
+- Domain Events
+- Repositories
+- Factories
+- Specifications
 
 ---
 
-# Rule 6
+## Rule 6
 
-Every Use Case must define
+Every Use Case must define:
 
-Business Goal
-
-Actor
-
-Trigger
-
-Preconditions
-
-Main Flow
-
-Alternative Flow
-
-Failure Flow
-
-Postconditions
-
-Acceptance Criteria
+- Business Goal
+- Actor
+- Trigger
+- Preconditions
+- Main Flow
+- Alternative Flow
+- Failure Flow
+- Postconditions
+- Acceptance Criteria
 
 ---
 
-# Rule 7
+## Rule 7
 
-Every implementation must begin by producing
+Every implementation must begin by producing:
 
 ## Analysis
 
-Business Understanding
-
-Current Behavior
-
-Expected Behavior
-
-Affected Aggregates
-
-Affected APIs
-
-Affected Events
-
-Affected Database
-
-Risk
-
-Impact Analysis
-
-Implementation Plan
+- Business Understanding
+- Current Behavior
+- Expected Behavior
+- Affected Aggregates
+- Affected APIs
+- Affected Events
+- Affected Database
+- Risk
+- Impact Analysis
+- Implementation Plan
 
 Do not implement before analysis is complete.
 
 ---
 
-# Rule 8
+## Rule 8
 
 Testing Requirements
 
-Always create
+Always create:
 
-Acceptance Test
+- Acceptance Test
+- Integration Test
+- Domain Test
+- Application Test
+- Regression Checklist
 
-Integration Test
+Test:
 
-Domain Test
-
-Application Test
-
-Regression Checklist
-
-Test
-
-Happy Path
-
-Validation
-
-Concurrency
-
-Rollback
-
-Idempotency
-
-Exception
-
-Edge Cases
+- Happy Path
+- Validation
+- Concurrency
+- Rollback
+- Idempotency
+- Exception
+- Edge Cases
 
 ---
 
-# Rule 9
+## Rule 9
 
 Documentation is part of the implementation.
 
-Whenever code changes
+Whenever code changes:
 
-Update
+Update:
 
-Business Rules
-
-Workflow
-
-API
-
-Events
-
-Sequence Diagram
-
-Examples
-
-Database
-
-Architecture if required
+- Business Rules
+- Workflow
+- API
+- Events
+- Sequence Diagram
+- Examples
+- Database
+- Architecture if required
 
 Never leave documentation outdated.
 
 ---
 
-# Rule 10
+## Rule 10
 
-Definition of Done
+Definition of Done (Additional)
 
-A task is NOT complete until
+A task is NOT complete until:
 
 ✓ Business rules preserved
-
 ✓ Tests passing
-
 ✓ Documentation updated
-
 ✓ API documented
-
 ✓ Events documented
-
 ✓ Database documented
-
 ✓ Regression checklist updated
-
 ✓ No duplicated logic
-
 ✓ DDD respected
-
 ✓ SOLID respected
-
 ✓ Self review completed
-
 ✓ Multi-service impact analyzed (if applicable)
-
 ✓ Cross-service documentation updated (if applicable)
+✓ Wion Engineering Rules followed
+✓ Architecture remains clean
+✓ No dead code left behind
 
 ---
 
 # Self Review Checklist
 
-Before finishing ask yourself
+Before finishing ask yourself:
 
-Can this business rule move into Domain?
+- Can this business rule move into Domain?
+- Can this Aggregate become inconsistent?
+- Can this break another bounded context?
+- Did I violate Aggregate boundaries?
+- Did I introduce duplicated knowledge?
+- Did I write enough tests?
+- Can another developer understand this in six months?
+- Is documentation synchronized?
+- Did I follow all Wion Engineering Rules?
+- Is the architecture cleaner than before?
 
-Can this Aggregate become inconsistent?
-
-Can this break another bounded context?
-
-Did I violate Aggregate boundaries?
-
-Did I introduce duplicated knowledge?
-
-Did I write enough tests?
-
-Can another developer understand this in six months?
-
-Is documentation synchronized?
-
-If any answer is NO
+If any answer is NO:
 
 Continue improving before finishing.
 
@@ -608,7 +707,7 @@ Continue improving before finishing.
 
 ```
 .claude/
-├── CLAUDE.md              # This file (service-agnostic)
+├── CLAUDE.md              # This file (Wion Engineering Rules)
 ├── playbooks/             # Global AI workflows
 │   ├── new-feature.md
 │   ├── bug-fix.md
@@ -632,7 +731,7 @@ Continue improving before finishing.
     │   ├── api-conventions.md
     │   ├── documentation-standards.md
     │   └── architecture-principles.md
-    ├── billing-service/   # Service-specific docs
+    ├── wion-billing/      # WION Billing Service docs
     │   ├── README.md
     │   ├── architecture/
     │   ├── domains/
@@ -643,6 +742,7 @@ Continue improving before finishing.
     │   ├── events/
     │   ├── reference/
     │   └── adr/
+    ├── billing-management/ # TMT Billing Management docs
     └── [other services]/  # Future services
 ```
 
@@ -654,9 +754,9 @@ Continue improving before finishing.
 
 **Task**: "Implement wallet freeze feature"
 
-1. **Discover service**: "Wallet" → `billing-service`
+1. **Discover service**: "Wallet" → `wion-billing`
 2. **Load shared conventions**: `knowledge/shared/*.md`
-3. **Load service docs**: `knowledge/billing-service/`
+3. **Load service docs**: `knowledge/wion-billing/`
 4. **Load playbook**: `playbooks/new-feature.md`
 5. **Execute**: Apply to service context
 
@@ -666,24 +766,22 @@ Continue improving before finishing.
 
 **Task**: "Add payment webhook notifications"
 
-1. **Discover services**: "Payment" → `billing-service`, `notification-service`
+1. **Discover services**: "Payment" → `wion-billing`, notification service
 2. **Load shared conventions**: `knowledge/shared/*.md`
-3. **Load billing docs**: `knowledge/billing-service/`
-4. **Load notification docs**: `knowledge/notification-service/`
-5. **Cross-service analysis**: Identify integration points
-6. **Execute**: Update both services
+3. **Load billing docs**: `knowledge/wion-billing/`
+4. **Cross-service analysis**: Identify integration points
+5. **Execute**: Update all affected services
 
 ---
 
-### For New Services
+### For BuildingBlock Tasks
 
-**Task**: "Create new reporting service"
+**Task**: "Add new validation helper"
 
-1. **Discover**: New service requirement
-2. **Load shared conventions**: `knowledge/shared/*.md`
-3. **Create structure**: `knowledge/reporting-service/` with standard layout
-4. **Initialize**: Create README.md, architecture docs
-5. **Apply**: Apply shared conventions to new service
+1. **Check existing**: Search `src/framework/Wion.BuildingBlock`
+2. **Reuse if found**: Improve existing implementation
+3. **Create if new**: Add to appropriate BuildingBlock project
+4. **Never use**: `src/building-blocks` (deprecated)
 
 ---
 
@@ -693,29 +791,56 @@ Continue improving before finishing.
 
 | Indicator | Service Detection | Example |
 |-----------|------------------|---------|
-| **Explicit name** | Direct mention | "billing-service" |
-| **Domain concept** | Domain mapping | "Wallet" → billing |
-| **API endpoint** | Service mapping | `/api/v1/wallets/` → billing |
-| **Event name** | Service mapping | `PaymentSucceeded` → billing |
-| **File path** | Path parsing | `knowledge/billing/` → billing |
+| **Explicit name** | Direct mention | "wion-billing" |
+| **Domain concept** | Domain mapping | "Wallet" → wion-billing |
+| **API endpoint** | Service mapping | `/api/v1/wallets/` → wion-billing |
+| **Event name** | Service mapping | `PaymentSucceeded` → wion-billing |
+| **File path** | Path parsing | `knowledge/wion-billing/` → wion-billing |
 
 ---
 
-## Standard Commands
+## Architecture Patterns
 
-### Discover Service
-```bash
-detect_service(task_context) → service_name
+### Repository Pattern (TMT Style)
+```csharp
+// Interface
+public interface IWalletRepository : ITMTRepository<Wallet, long>
+{
+    Task<Wallet> FindByTenantIdAsync(string tenantId);
+}
+
+// Implementation
+public class EfCoreWalletRepository : TMTEfCoreRepository<BillingDbContext, Wallet, long>, IWalletRepository
+{
+    public EfCoreWalletRepository(IDbContextProvider<BillingDbContext> dbContextProvider, IUniqueKey uniqueKey)
+        : base(dbContextProvider, uniqueKey)
+    {
+    }
+}
 ```
 
-### Load Knowledge Base
-```bash
-load_knowledge_base(service_name) → service_docs
-```
-
-### Create Service
-```bash
-create_service(service_name) → new_service_structure
+### Aggregate Pattern (DDD Style)
+```csharp
+public class Wallet : BillingAggregateRoot, ITMTMultiTenant
+{
+    // Private setters for domain state
+    public decimal AvailableBalance { get; private set; }
+    
+    // Static factory method
+    public static Wallet CreateNew(long id, string tenantId, string currency = "VND")
+    {
+        return new Wallet(id, tenantId, currency);
+    }
+    
+    // Domain operations with business rules
+    public void Credit(decimal amount)
+    {
+        CheckRule(new CreditAmountMustBePositiveRule(amount));
+        CheckRule(new WalletNotDeletedRule(this));
+        AvailableBalance += amount;
+        AddLocalEvent(new BalanceChangedDomainEvent(...));
+    }
+}
 ```
 
 ---
@@ -724,7 +849,7 @@ create_service(service_name) → new_service_structure
 
 ## Architecture Team
 
-**Questions about multi-service architecture**?
+**Questions about Wion engineering architecture**?
 - **Architecture Team**: architecture@wion.vn
 - **Tech Lead**: tech-lead@wion.vn
 
@@ -732,6 +857,6 @@ create_service(service_name) → new_service_structure
 
 # Version
 
-**Knowledge Base Version**: 2.0 (Multi-Service Architecture)  
-**Last Updated**: 2026-07-05  
-**Migration**: From v1.0 (single-service) to v2.0 (multi-service)
+**Knowledge Base Version**: 3.0 (Wion Engineering Rules + Multi-Service Architecture)  
+**Last Updated**: 2026-07-24  
+**Migration**: From v2.0 to v3.0 - Added Wion Engineering Rules
